@@ -1,0 +1,13 @@
+# Betriebssystem / Editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# Lokale Test- und Build-Artefakte
+node_modules/
+*.log
+*.tmp
+.playwright-mcp/
+test-output/
