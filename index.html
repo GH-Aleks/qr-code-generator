@@ -6,7 +6,7 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; connect-src 'none'; base-uri 'none'; form-action 'none'">
   <meta name="color-scheme" content="light dark">
   <title>QR-Code-Generator</title>
-  <meta name="description" content="QR-Codes für Text, Links, WLAN, Kontakte und E-Mails erzeugen – komplett im Browser, ohne Server, ohne Tracking.">
+  <meta name="description" content="QR-Codes für Text, Links, WLAN, Kontakte und E-Mails erzeugen, komplett im Browser, ohne Server, ohne Tracking.">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -16,14 +16,14 @@
   <header class="site-header">
     <div class="wrap">
       <h1>QR-Code-Generator</h1>
-      <p class="lead">QR-Codes für Text, Links, WLAN, Kontakte und E-Mails – als PNG oder SVG.</p>
+      <p class="lead">QR-Codes für Text, Links, WLAN, Kontakte und E-Mails, als PNG oder SVG.</p>
     </div>
   </header>
 
   <main id="inhalt" class="wrap">
     <p class="privacy">
       <svg class="privacy-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 1a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2h-1V6a5 5 0 0 0-5-5zm-3 8V6a3 3 0 0 1 6 0v3H9z"/></svg>
-      <span>Alles passiert in deinem Browser – es werden keine Daten gesendet oder gespeichert.</span>
+      <span>Alles passiert in deinem Browser. Es werden keine Daten gesendet oder gespeichert.</span>
     </p>
 
     <div class="layout">
@@ -157,7 +157,7 @@
 
         <div class="qr-stage">
           <div id="qr-box" class="qr-box" role="img" aria-label="QR-Code-Vorschau"></div>
-          <p id="qr-empty" class="qr-empty">Gib links einen Inhalt ein – der QR-Code erscheint hier sofort.</p>
+          <p id="qr-empty" class="qr-empty">Gib links einen Inhalt ein, der QR-Code erscheint hier sofort.</p>
         </div>
 
         <p id="qr-info" class="qr-info" aria-live="polite"></p>
@@ -169,13 +169,13 @@
           <button type="button" id="dl-svg" class="btn btn-primary" disabled>SVG herunterladen</button>
           <button type="button" id="copy" class="btn" disabled>In Zwischenablage kopieren</button>
         </div>
-        <p id="copy-hint" class="hint" hidden>Kopieren als Bild wird von diesem Browser oder dieser Verbindung nicht unterstützt – bitte stattdessen das PNG herunterladen.</p>
+        <p id="copy-hint" class="hint" hidden>Kopieren als Bild wird von diesem Browser oder dieser Verbindung nicht unterstützt. Bitte stattdessen das PNG herunterladen.</p>
         <p id="status" class="status" role="status" aria-live="polite"></p>
 
         <details class="payload">
           <summary>Kodierten Inhalt anzeigen</summary>
           <pre id="payload"></pre>
-          <p class="hint">Das ist der Text, der im QR-Code steckt – bei WLAN und Kontakt im jeweiligen Standardformat.</p>
+          <p class="hint">Das ist der Text, der im QR-Code steckt, bei WLAN und Kontakt im jeweiligen Standardformat.</p>
         </details>
       </section>
     </div>

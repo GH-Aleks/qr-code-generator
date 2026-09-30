@@ -1,4 +1,4 @@
-/* QR-Code-Generator – läuft komplett im Browser.
+/* QR-Code-Generator: läuft komplett im Browser.
  * Es gibt keine Netzwerkzugriffe (kein fetch/XHR) und keine Speicherung
  * (kein localStorage, keine Cookies). Die QR-Berechnung übernimmt die lokal
  * eingebundene Bibliothek vendor/qrcode.js (qrcode-generator, MIT). */
@@ -82,7 +82,7 @@
     var p = 'WIFI:T:' + sec + ';S:' + escapeWifi(ssid) + ';';
     if (sec !== 'nopass') {
       if (pw) p += 'P:' + escapeWifi(pw) + ';';
-      else notes.push('Kein Passwort eingetragen – das Netzwerk wird als geschützt markiert, die Verbindung klappt so nur, wenn es tatsächlich kein Passwort gibt.');
+      else notes.push('Kein Passwort eingetragen. Das Netzwerk wird als geschützt markiert, die Verbindung klappt so nur, wenn es tatsächlich kein Passwort gibt.');
     }
     if ($('wifi-hidden').checked) p += 'H:true;';
     return { payload: p + ';', notes: notes };
@@ -238,9 +238,9 @@
     // Kontrast prüfen (auch ohne Inhalt sichtbar, damit man es beim Einstellen sieht)
     var ratio = contrastRatio(fg, bg);
     if (ratio < 3) {
-      notes.push({ text: 'Kontrast nur ' + fmtRatio(ratio) + ' – Scanner werden den Code vermutlich nicht erkennen. Wähle deutlich hellere und dunklere Farben.' });
+      notes.push({ text: 'Kontrast nur ' + fmtRatio(ratio) + '. Scanner werden den Code vermutlich nicht erkennen. Wähle deutlich hellere und dunklere Farben.' });
     } else if (ratio < 4.5) {
-      notes.push({ text: 'Kontrast nur ' + fmtRatio(ratio) + ' – das kann die Lesbarkeit verschlechtern. Teste den Code unbedingt mit einem Handy.' });
+      notes.push({ text: 'Kontrast nur ' + fmtRatio(ratio) + '. Das kann die Lesbarkeit verschlechtern. Teste den Code unbedingt mit einem Handy.' });
     }
     if (luminance(fg) > luminance(bg)) {
       notes.push({ text: 'Der Vordergrund ist heller als der Hintergrund (invertierter Code). Nicht alle Scanner-Apps lesen das.' });
@@ -331,7 +331,7 @@
     navigator.clipboard.write([new ClipboardItem({ 'image/png': pngBlob() })]).then(function () {
       setStatus('QR-Code als Bild in die Zwischenablage kopiert.');
     }).catch(function () {
-      setStatus('Kopieren wurde vom Browser abgelehnt – bitte das PNG herunterladen.');
+      setStatus('Kopieren wurde vom Browser abgelehnt. Bitte das PNG herunterladen.');
     });
   });
 

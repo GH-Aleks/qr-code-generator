@@ -1,6 +1,6 @@
 # QR-Code-Generator
 
-Eine kleine, statische Website, die QR-Codes für Text/URL, WLAN, Kontakte (vCard) und E-Mail erzeugt – komplett im Browser. Live: <https://qr.aleksanderbauer.de>
+Eine kleine, statische Website, die QR-Codes für Text/URL, WLAN, Kontakte (vCard) und E-Mail erzeugt, komplett im Browser. Live: <https://qr.aleksanderbauer.de>
 
 ## Zweck
 
@@ -18,7 +18,7 @@ Eine englische Oberfläche gibt es bewusst nicht; sie wäre nur sauber mit zusä
 
 ## Warum alles im Browser?
 
-QR-Codes enthalten oft Sensibles – ein WLAN-Passwort ist das beste Beispiel. Die erste Version dieses Projekts (2025) hat dafür noch eine externe Schnittstelle (QR Server API) angefragt, also Eingaben an Dritte gesendet. Das ist die überarbeitete Fassung von 2026 nicht mehr:
+QR-Codes enthalten oft Sensibles. Ein WLAN-Passwort ist das beste Beispiel. Die erste Version dieses Projekts (2025) hat dafür noch eine externe Schnittstelle (QR Server API) angefragt, also Eingaben an Dritte gesendet. Das ist die überarbeitete Fassung von 2026 nicht mehr:
 
 - Der Code wird lokal mit einer mitgelieferten Bibliothek berechnet (siehe unten).
 - Es gibt keine Anfragen an Dritte: kein CDN, keine Web-Fonts, kein Tracking, keine Analyse.
@@ -76,7 +76,7 @@ Das sind manuelle Prüfungen während der Entwicklung, keine automatisierte Test
 ## Bekannte Grenzen
 
 - **WLAN-Sonderfall:** Sonderzeichen in SSID und Passwort (`\ ; , : "`) werden nach dem `WIFI:`-Schema mit Backslash maskiert. Eine SSID oder ein Passwort, das ausschließlich aus Hex-Ziffern besteht, müssten manche Geräte in Anführungszeichen gesetzt bekommen, um nicht als Hex-Wert gelesen zu werden. Das setze ich nicht um, weil die Implementierungen der Scanner-Apps hier unterschiedlich sind.
-- **Farben:** Der Kontrast wird nach der WCAG-Formel bewertet. Ob ein Scanner einen Code mit ungewöhnlichen Farben liest, hängt trotzdem vom Gerät ab – im Zweifel mit dem Handy testen.
+- **Farben:** Der Kontrast wird nach der WCAG-Formel bewertet. Ob ein Scanner einen Code mit ungewöhnlichen Farben liest, hängt trotzdem vom Gerät ab. Im Zweifel mit dem Handy testen.
 - **Größe:** Das PNG hat eine ganzzahlige Modulgröße, damit es scharf bleibt; die Ausgabegröße weicht deshalb leicht von der Zielgröße ab (wird im Formular angezeigt).
 
 ## Entstehung
@@ -85,7 +85,7 @@ Dieses Projekt habe ich mit Unterstützung eines KI-Assistenten (Claude) gebaut.
 
 ## Lizenz
 
-[MIT](LICENSE) – für den eigenen Code. Die Bibliothek unter `vendor/` steht unter ihrer eigenen MIT-Lizenz.
+[MIT](LICENSE) für den eigenen Code. Die Bibliothek unter `vendor/` steht unter ihrer eigenen MIT-Lizenz.
 
 ---
 
