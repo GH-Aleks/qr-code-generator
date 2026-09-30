@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta name="color-scheme" content="light dark">
+  <title>QR-Code-Generator</title>
+  <meta name="description" content="QR-Codes für Text, Links, WLAN, Kontakte und E-Mails erzeugen – komplett im Browser, ohne Server, ohne Tracking.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <h1>QR-Code-Generator</h1>
+      <p class="lead">QR-Codes für Text, Links, WLAN, Kontakte und E-Mails – als PNG oder SVG.</p>
+    </div>
+  </header>
+
+  <main id="inhalt" class="wrap">
+    <p class="privacy">
+      <svg class="privacy-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 1a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2h-1V6a5 5 0 0 0-5-5zm-3 8V6a3 3 0 0 1 6 0v3H9z"/></svg>
+      <span>Alles passiert in deinem Browser – es werden keine Daten gesendet oder gespeichert.</span>
+    </p>
+
+    <div class="layout">
+      <!-- Eingabe -->
+      <section class="panel" aria-labelledby="h-eingabe">
+        <h2 id="h-eingabe">1. Inhalt</h2>
+
+        <form id="qr-form" autocomplete="off" novalidate>
+          <fieldset class="seg-group">
+            <legend>Art des Inhalts</legend>
+            <div class="seg-row">
+              <label class="seg"><input type="radio" name="type" value="text" checked><span>Text / URL</span></label>
+              <label class="seg"><input type="radio" name="type" value="wifi"><span>WLAN</span></label>
+              <label class="seg"><input type="radio" name="type" value="vcard"><span>Kontakt (vCard)</span></label>
+              <label class="seg"><input type="radio" name="type" value="email"><span>E-Mail</span></label>
+            </div>
+          </fieldset>
+
+          <!-- Text / URL -->
+          <div class="fields" data-panel="text">
+            <div class="field">
+              <label for="text-value">Text oder URL</label>
+              <textarea id="text-value" rows="4" spellcheck="false" placeholder="https://…"></textarea>
+            </div>
+          </div>
+
+          <!-- WLAN -->
+          <div class="fields" data-panel="wifi" hidden>
+            <div class="field">
+              <label for="wifi-ssid">Netzwerkname (SSID)</label>
+              <input id="wifi-ssid" type="text" spellcheck="false" autocapitalize="off">
+            </div>
+            <div class="field">
+              <label for="wifi-security">Verschlüsselung</label>
+              <select id="wifi-security">
+                <option value="WPA" selected>WPA / WPA2 / WPA3</option>
+                <option value="WEP">WEP</option>
+                <option value="nopass">Offen (kein Passwort)</option>
+              </select>
+            </div>
+            <div class="field" id="wifi-password-field">
+              <label for="wifi-password">Passwort</label>
+              <input id="wifi-password" type="password" spellcheck="false" autocapitalize="off" autocomplete="off">
+              <label class="check"><input id="wifi-show" type="checkbox"> Passwort anzeigen</label>
+            </div>
+            <div class="field">
+              <label class="check"><input id="wifi-hidden" type="checkbox"> Verstecktes Netzwerk (SSID wird nicht gesendet)</label>
+            </div>
+          </div>
+
+          <!-- vCard -->
+          <div class="fields" data-panel="vcard" hidden>
+            <div class="field-row">
+              <div class="field">
+                <label for="vc-first">Vorname</label>
+                <input id="vc-first" type="text">
+              </div>
+              <div class="field">
+                <label for="vc-last">Nachname</label>
+                <input id="vc-last" type="text">
+              </div>
+            </div>
+            <div class="field">
+              <label for="vc-org">Organisation (optional)</label>
+              <input id="vc-org" type="text">
+            </div>
+            <div class="field">
+              <label for="vc-tel">Telefon</label>
+              <input id="vc-tel" type="tel" inputmode="tel">
+            </div>
+            <div class="field">
+              <label for="vc-mail">E-Mail</label>
+              <input id="vc-mail" type="email" inputmode="email" spellcheck="false" autocapitalize="off">
+            </div>
+          </div>
+
+          <!-- E-Mail -->
+          <div class="fields" data-panel="email" hidden>
+            <div class="field">
+              <label for="em-to">Empfänger</label>
+              <input id="em-to" type="email" inputmode="email" spellcheck="false" autocapitalize="off">
+            </div>
+            <div class="field">
+              <label for="em-subject">Betreff (optional)</label>
+              <input id="em-subject" type="text">
+            </div>
+            <div class="field">
+              <label for="em-body">Nachricht (optional)</label>
+              <textarea id="em-body" rows="4"></textarea>
+            </div>
+          </div>
+
+          <h2 id="h-optionen" class="sub-h">2. Darstellung</h2>
+
+          <div class="field">
+            <label for="size">Zielgröße: <output id="size-out" for="size">320 px</output></label>
+            <input id="size" type="range" min="128" max="1024" step="16" value="320">
+            <p class="hint" id="size-hint"></p>
+          </div>
+
+          <fieldset class="seg-group">
+            <legend>Fehlerkorrektur</legend>
+            <div class="seg-row">
+              <label class="seg"><input type="radio" name="ecc" value="L"><span>L · 7 %</span></label>
+              <label class="seg"><input type="radio" name="ecc" value="M" checked><span>M · 15 %</span></label>
+              <label class="seg"><input type="radio" name="ecc" value="Q"><span>Q · 25 %</span></label>
+              <label class="seg"><input type="radio" name="ecc" value="H"><span>H · 30 %</span></label>
+            </div>
+            <p class="hint">Höhere Stufen überstehen mehr Beschädigung, machen den Code aber dichter. Die Prozentwerte sind der ungefähr wiederherstellbare Anteil.</p>
+          </fieldset>
+
+          <div class="field-row colors">
+            <div class="field">
+              <label for="fg">Vordergrund</label>
+              <div class="color-wrap"><input id="fg" type="color" value="#000000"><code id="fg-hex">#000000</code></div>
+            </div>
+            <div class="field">
+              <label for="bg">Hintergrund</label>
+              <div class="color-wrap"><input id="bg" type="color" value="#ffffff"><code id="bg-hex">#ffffff</code></div>
+            </div>
+            <div class="field color-reset">
+              <button type="button" id="colors-reset" class="btn btn-ghost">Farben zurücksetzen</button>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <!-- Vorschau -->
+      <section class="panel preview" aria-labelledby="h-vorschau">
+        <h2 id="h-vorschau">3. Vorschau &amp; Export</h2>
+
+        <div class="qr-stage">
+          <div id="qr-box" class="qr-box" role="img" aria-label="QR-Code-Vorschau"></div>
+          <p id="qr-empty" class="qr-empty">Gib links einen Inhalt ein – der QR-Code erscheint hier sofort.</p>
+        </div>
+
+        <p id="qr-info" class="qr-info" aria-live="polite"></p>
+
+        <ul id="notes" class="notes" aria-live="polite"></ul>
+
+        <div class="actions">
+          <button type="button" id="dl-png" class="btn btn-primary" disabled>PNG herunterladen</button>
+          <button type="button" id="dl-svg" class="btn btn-primary" disabled>SVG herunterladen</button>
+          <button type="button" id="copy" class="btn" disabled>In Zwischenablage kopieren</button>
+        </div>
+        <p id="copy-hint" class="hint" hidden>Kopieren als Bild wird von diesem Browser oder dieser Verbindung nicht unterstützt – bitte stattdessen das PNG herunterladen.</p>
+        <p id="status" class="status" role="status" aria-live="polite"></p>
+
+        <details class="payload">
+          <summary>Kodierten Inhalt anzeigen</summary>
+          <pre id="payload"></pre>
+          <p class="hint">Das ist der Text, der im QR-Code steckt – bei WLAN und Kontakt im jeweiligen Standardformat.</p>
+        </details>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>Ein Projekt von <a href="https://aleksanderbauer.de" rel="noopener">Aleksander Bauer</a> · <a href="https://github.com/GH-Aleks/qr-code-generator" rel="noopener">Quellcode auf GitHub</a></p>
+      <p class="small">QR-Berechnung mit <a href="https://github.com/kazuhikoarase/qrcode-generator" rel="noopener">qrcode-generator</a> von Kazuhiko Arase (MIT), lokal eingebunden. „QR Code“ ist eine eingetragene Marke der DENSO WAVE INCORPORATED.</p>
+    </div>
+  </footer>
+
+  <script src="vendor/qrcode.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
